@@ -47,13 +47,27 @@ public class Algebra {
 
  	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		int timess=0;
-		while(x2>0){
-			timess = plus(timess, x1);  // add x1 to result
-        x2--;  
-		}
-		return timess;
-	}
+    int result = 0;
+    boolean negative = false;
+
+    if (x2 < 0) {
+        x2 = -x2;
+        negative = !negative;
+    }
+    if (x1 < 0) {
+        x1 = -x1;
+        negative = !negative;
+    }
+
+    while (x2 > 0) {
+        result = plus(result, x1);
+        x2--;
+    }
+
+    if (negative) result = -result; 
+    return result;
+}
+
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
@@ -66,37 +80,45 @@ public class Algebra {
 	}
 
 	// Returns the integer part of x1 / x2 
-	public static int div(int x1, int x2)
-	 {
-	int counter=0;
-	int result = x1;
-		while(result>0){
-			if(result<x2){return counter;}
-			result = minus(result, x2);  
-        	counter++;  
-		}	
-			return counter;
+	public static int div(int x1, int x2) {
+    boolean negative = (x1 < 0) ^ (x2 < 0);
+    x1 = x1 < 0 ? -x1 : x1;
+    x2 = x2 < 0 ? -x2 : x2;
 
-	}
+    int result = 0;
+    while (x1 >= x2) {
+        x1 = minus(x1, x2);
+        result = plus(result, 1);
+    }
+
+    return negative ? -result : result;
+}
+
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
+    boolean negative = x1 < 0;
+    x1 = x1 < 0 ? -x1 : x1;
+    x2 = x2 < 0 ? -x2 : x2;
 
-	int result = x1;
-		while(result>=x2){
-			result = minus(result, x2);  
-		}	
-			return result;
-	}	
+    while (x1 >= x2) {
+        x1 = minus(x1, x2);
+    }
+
+    return negative ? -x1 : x1;
+}
+
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
-	int num=1;
-	while(times(num,num)<x){
-		num++;
-	}
-	return(num);
-	
-	
-		}	 	  
+    if (x == 0) return 0;
+
+    int num = 1;
+    while (times(num, num) <= x) {
+        num = plus(num, 1);
+    }
+
+    return minus(num, 1); 
+}
+	  
 }
