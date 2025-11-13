@@ -74,23 +74,3 @@ public class Anagram {
 		}
 		return newstr;
 	}}
-
-class TestClass {
-    public static void main(String[] args) {
-		System.out.println(preProcess("What? No way!!!"));
-    }
-	public static String preProcess(String str) {
-		String lowerstr = str.toLowerCase();
-		return Keeponlyletters(lowerstr);
-	} 
-	public static String Keeponlyletters(String str) {
-		String result = "";
-		for (int i =0;i<str.length();i++){
-			char c = str.charAt(i);
-			if(!Character.isLetter(c)){continue;}
-			result += c;
-
-		}
-		return result;
-	} 
-}
