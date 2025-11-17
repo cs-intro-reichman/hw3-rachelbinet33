@@ -62,7 +62,7 @@ public class Algebra {
     while (x2 > 0) {
         result = plus(result, x1);
         x2--;
-    }
+    } 
 
     if (negative) result = -result; 
     return result;
