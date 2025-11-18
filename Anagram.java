@@ -63,14 +63,21 @@ public class Anagram {
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		char[] array = str.toCharArray();
-		String newstr = "";
-		while (newstr.length() < str.length())	{
-			int index = (int) (Math.random() * array.length);
-			char randomchar = array[index];
-			if (newstr.indexOf(randomchar) == -1) {
-				newstr += randomchar;
-			}
-		}
+        char[] array = str.toCharArray();
+        boolean[] used = new boolean[array.length];  // marks which indices were used
+
+        String newstr = "";
+        int count = 0;
+
+        while (count < array.length) {
+            int index = (int)(Math.random() * array.length);
+
+            if (!used[index]) {           
+                newstr += array[index];   
+                used[index] = true;
+                count++;
+            }
+        }
 		return newstr;
-	}}
+	}
+}
